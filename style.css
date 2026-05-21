@@ -137,12 +137,44 @@ footer {
 }
 
 /* ================================
-   RESPONSIVIDADE
+   RESPONSIVIDADE — CELULAR
    ================================ */
 
-@media (max-width: 768px){
-    header{
+@media (max-width: 768px) {
+
+    /* Header vira coluna no celular */
+    header {
         flex-direction: column;
         text-align: center;
+        padding: 16px 20px;
+        gap: 12px;
+    }
+
+    /* Menu centralizado */
+    nav a {
+        margin: 0 8px;
+        font-size: 14px;
+    }
+
+    /* Conteúdo ocupa tela toda */
+    main {
+        padding: 20px 12px;
+    }
+
+    /* Cards com menos padding */
+    section {
+        padding: 20px 16px;
+    }
+
+    /* Título principal menor */
+    header h1 {
+        font-size: 20px;
+    }
+
+    /* Botão WhatsApp ocupa largura toda */
+    section a {
+        display: block;
+        text-align: center;
+        width: 100%;
     }
 }
