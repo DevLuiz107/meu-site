@@ -80,3 +80,65 @@ function mostrarCidade(){
 }
 
 mostrarCidade();
+
+// ================================
+// 6. FORMULÁRIO DE CONTATO
+// ================================
+
+// Cole suas chaves do EmailJS aqui:
+const EMAILJS_SERVICE_ID  = "service_fmzcj2i"
+const EMAILJS_TEMPLATE_ID = "template_i6w40tu"
+const EMAILJS_PUBLIC_KEY  = "R-37qnqLZ_rQnHrWz"
+
+// Inicializa o EmailJS
+emailjs.init(EMAILJS_PUBLIC_KEY)
+
+// Pega o formulário
+const formulario = document.getElementById("formulario-contato")
+const btnEnviar  = document.getElementById("btn-enviar")
+const msgSucesso = document.getElementById("mensagem-sucesso")
+const msgErro    = document.getElementById("mensagem-erro")
+
+// Escuta o evento de submit
+formulario.addEventListener("submit", function(evento) {
+
+    // Impede o comportamento padrão (recarregar a página)
+    evento.preventDefault()
+
+    // Desabilita o botão e muda o texto
+    btnEnviar.disabled = true
+    btnEnviar.textContent = "Enviando..."
+
+    // Esconde mensagens anteriores
+    msgSucesso.style.display = "none"
+    msgErro.style.display    = "none"
+
+    // Monta os dados do formulário
+    const dados = {
+        nome:      document.getElementById("nome").value,
+        email:     document.getElementById("email").value,
+        telefone:  document.getElementById("telefone").value,
+        servico:   document.getElementById("servico").value,
+        mensagem:  document.getElementById("mensagem").value
+    }
+
+    // Envia o e-mail
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, dados)
+        .then(function() {
+            // Sucesso
+            msgSucesso.style.display = "block"
+            formulario.reset()
+            btnEnviar.disabled    = false
+            btnEnviar.textContent = "Enviar Mensagem"
+
+            // Rola até a mensagem de sucesso
+            msgSucesso.scrollIntoView({ behavior: "smooth" })
+        })
+        .catch(function(erro) {
+            // Erro
+            console.log("Erro EmailJS:", erro)
+            msgErro.style.display = "block"
+            btnEnviar.disabled    = false
+            btnEnviar.textContent = "Enviar Mensagem"
+        })
+})
